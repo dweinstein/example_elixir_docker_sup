@@ -1,5 +1,5 @@
 defmodule Alpine.Service do
-  use GenServer
+  use GenServer, restart: :transient
   require Logger
 
   @mod __MODULE__
@@ -44,7 +44,7 @@ defmodule Alpine.Service do
         {:reply, {:ok, stdio}, state}
 
       {stdio, code} ->
-        {:stop, :normal, {:error, stdio, code}, state}
+        {:stop, :error, {:error, stdio, code}, state}
     end
   end
 
